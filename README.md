@@ -6,31 +6,15 @@
     <title>NavTrail - All-in-One</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --bg-color: linear-gradient(to right, #a8c0ff, #3f2b96);
-            --text-color: #fff;
-            --nav-bg: #957DAD;
-            --header-bg: #6a11cb;
-            --section-bg: rgba(255, 255, 255, 0.2);
-            --footer-bg: #6a11cb;
-        }
-        body.dark-mode {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --nav-bg: #333;
-            --header-bg: #222;
-            --section-bg: #1e1e1e;
-            --footer-bg: #222;
-        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: var(--bg-color);
-            color: var(--text-color);
+            background: linear-gradient(to right, #a8c0ff, #3f2b96); /* Blue-Purple Gradient */
+            color: #fff;
         }
         header {
-            background: var(--header-bg);
+            background: #6a11cb; /* Purple Shade */
             padding: 15px;
             text-align: center;
             font-size: 24px;
@@ -45,7 +29,7 @@
             justify-content: center;
             gap: 20px;
             padding: 10px;
-            background: var(--nav-bg);
+            background: #957DAD;
             position: sticky;
             top: 50px;
             z-index: 999;
@@ -60,22 +44,54 @@
         .nav a:hover {
             color: #ffd700;
         }
-        .section {
+        section {
+            padding: 50px;
             text-align: center;
-            padding: 20px;
-            background: var(--section-bg);
+            background: rgba(255, 255, 255, 0.2);
             margin: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .collapsible {
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            background: #6a11cb;
+            color: white;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .collapsible:hover {
+            background: #957DAD;
+        }
+        .content {
+            display: none;
+            padding: 20px;
         }
         footer {
             text-align: center;
             padding: 20px;
-            background: var(--footer-bg);
+            background: #6a11cb;
             color: white;
             margin-top: 20px;
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let collapsibles = document.querySelectorAll(".collapsible");
+            collapsibles.forEach(btn => {
+                btn.addEventListener("click", function () {
+                    let content = this.nextElementSibling;
+                    content.style.display = content.style.display === "block" ? "none" : "block";
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <header>NavTrail - Explore the World</header>
@@ -90,68 +106,50 @@
         <a href="#signup">Sign Up</a>
     </div>
 
-    <section class="section" id="weather">
-        <h2>Current Weather</h2>
-        <p>Fetching weather data...</p>
-    </section>
+    <button class="collapsible">Welcome to NavTrail</button>
+    <div class="content" id="home">
+        <p>Plan your next adventure with ease!</p>
+    </div>
 
-    <section class="section" id="map">
-        <h2>Map & Location</h2>
-        <div id="map"></div>
-    </section>
+    <button class="collapsible">Explore Destinations</button>
+    <div class="content" id="explore">
+        <p>Discover amazing places around the world.</p>
+    </div>
 
-    <section class="section" id="image-slider">
-        <h2>Travel Destinations</h2>
-        <div class="slider">
-            <img src="https://via.placeholder.com/800x400?text=Paris" alt="Paris">
-            <img src="https://via.placeholder.com/800x400?text=Tokyo" alt="Tokyo">
-            <img src="https://via.placeholder.com/800x400?text=New York" alt="New York">
-        </div>
-    </section>
+    <button class="collapsible">Plan Your Trip</button>
+    <div class="content" id="plan-trip">
+        <p>Create a personalized itinerary with smart suggestions.</p>
+    </div>
 
-    <section class="section" id="chat-support">
-        <h2>Live Chat Support</h2>
-        <div class="chat-box">
-            <p>Chat with our support team.</p>
-        </div>
-    </section>
+    <button class="collapsible">Join the Community</button>
+    <div class="content" id="community">
+        <p>Connect with travelers, share experiences, and explore.</p>
+    </div>
 
-    <section class="section" id="itinerary-generator">
-        <h2>AI Itinerary Generator</h2>
-        <input type="text" id="destination" placeholder="Enter a destination">
-        <button onclick="generateItinerary()">Generate</button>
-        <p id="itinerary-output"></p>
-    </section>
+    <button class="collapsible">About NavTrail</button>
+    <div class="content" id="about">
+        <p>Learn about our mission and values.</p>
+    </div>
 
-    <section class="section" id="budget-tracker">
-        <h2>Budget Tracker</h2>
-        <input type="text" id="expense-name" placeholder="Expense Name">
-        <input type="number" id="expense-amount" placeholder="Amount">
-        <button onclick="addExpense()">Add Expense</button>
-        <p id="total-expense">Total Expense: $0.00</p>
-    </section>
+    <button class="collapsible">Your Profile</button>
+    <div class="content" id="profile">
+        <p>Manage your account and travel history.</p>
+    </div>
 
-    <section class="section" id="travel-packages">
-        <h2>Travel Packages</h2>
-        <input type="number" id="package-budget" placeholder="Enter your budget">
-        <button onclick="recommendPackage()">Get Recommendation</button>
-        <p id="package-output"></p>
-    </section>
+    <button class="collapsible">Login</button>
+    <div class="content" id="login">
+        <p>Access your account.</p>
+    </div>
 
-    <section class="section" id="phrasebook">
-        <h2>Local Phrasebook</h2>
-        <select id="language-select">
-            <option value="english">English</option>
-            <option value="spanish">Spanish</option>
-            <option value="french">French</option>
-            <option value="german">German</option>
-        </select>
-        <button onclick="showPhrase()">Show Phrase</button>
-        <p id="phrase-output"></p>
-    </section>
+    <button class="collapsible">Sign Up</button>
+    <div class="content" id="signup">
+        <p>Create your NavTrail account today.</p>
+    </div>
 
     <footer>
         <p>&copy; 2024 NavTrail. All rights reserved.</p>
     </footer>
 </body>
 </html>
+
+
